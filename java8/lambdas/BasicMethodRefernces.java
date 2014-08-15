@@ -22,7 +22,7 @@ public class BasicMethodRefernces {
 		StringUtils.betterString("String 1", "String 222", (s1, s2) -> true);
 		StringUtils.betterString("String 1", "String 222",
 				(s1, s2) -> s1.length() > s2.length());
-
+		
 	}
 }
 
