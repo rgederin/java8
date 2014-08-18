@@ -1,6 +1,10 @@
 package java8.lambdas;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.function.IntPredicate;
+import java.util.function.Predicate;
+import java.util.stream.IntStream;
 
 /**
  * Simple lambdas examples
@@ -14,8 +18,12 @@ public class BasicLambdas {
 
 	public static void main(String[] args) {
 		lambdasSort();
+
+		System.out.println();
+		Runnable r1 = () -> System.out.println("My Runnable");
+		new Thread(r1).start();
 	}
-	
+
 	/**
 	 * Using lambdas for sorting
 	 */
@@ -44,7 +52,25 @@ public class BasicLambdas {
 			}
 		});
 		Arrays.asList(array).forEach(System.out::println);
-	
+	}
+
+	private static boolean isPrime(int number) {
+		IntPredicate isDivisible = index -> number % index == 0;
+		return number > 1
+				&& IntStream.range(2, number - 1).noneMatch(isDivisible);
+	}
+
+	/**
+	 * //sum of all numbers
+	 * sumWithCondition(numbers, n -> true)
+	 * //sum of all even
+	 * numberssumWithCondition(numbers, i -> i%2==0)
+	 * //sum of all numbers greater
+	 * than 5sumWithCondition(numbers, i -> i>5)
+	 */
+	public static int sumWithCondition(List<Integer> numbers,
+			Predicate<Integer> predicate) {
+		return numbers.parallelStream().filter(predicate).mapToInt(i -> i)
+				.sum();
 	}
 }
-
